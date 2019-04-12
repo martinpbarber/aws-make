@@ -1,0 +1,53 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Description: >-
+  Test Template
+
+Resources:
+  MPBLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: python3.6
+      MemorySize: 128
+      Timeout: 30
+      Handler: mpb.handler
+      Role: !GetAtt MPBLambdaRole.Arn
+      CodeUri: ../.build/src/mpb
+
+  MPBLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: ['sts:AssumeRole']
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  TSTLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: python3.6
+      MemorySize: 128
+      Timeout: 30
+      Handler: mpb.handler
+      Role: !GetAtt TSTLambdaRole.Arn
+      CodeUri: ../.build/src/tst
+
+  TSTLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: ['sts:AssumeRole']
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole

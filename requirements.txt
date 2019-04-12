@@ -1,0 +1,6 @@
+pylint
+pytest
+coverage
+
+# Installed for local tests
+boto3
