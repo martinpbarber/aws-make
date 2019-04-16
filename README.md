@@ -1,23 +1,35 @@
 # AWS Makefile
-A Makefile that I use during development to package and deploy CloudFormation templates and SAM templates with associated code. The Makefile currently only supports code that is written in Python
+A Makefile that I use during development to package and deploy CloudFormation templates and SAM templates with associated code. The Makefile currently only supports code written in Python
 
 ## Repository Layout
-The Makefile expects the following repository layout to function properly.
+The Makefile requires the following repository layout.
 
-* Repository Root Directory
-  * cloudformation
-  * source
-  * tests: Directory that contains Python unittest files
-  * requirements.dev: Python requirements file for development modules
-  * Makefile: The file that makes my life easier
-  * bld
-    * src
-    * cfn
+  * cloudformation: Directory for CloudFormation/SAM templates
+  * source/lambda: Directories for Python source
+  * tests: Directory for test files (coverage/pytest)
+  * requirements.dev: Python requirements file for development
+  * .yamllint: Python yamllint configuration file
+  * conftest.py: Python pytest configuration file
 
-The "cloudformation" directory contains one or more CloudFormation/SAM templates.
+The following directories are created by the Makefile during the development process.
 
-The "source" directory is optional and can be structured in one of the following ways.
-1. If the repository is only using CloudFormation templates the directory does not exist
-1. If the repository is using SAM templates
+  * .build: Directory that contains build artifacts
+    * cfn: Directory for packaged CloudFormation/SAM templates
+    * src: Directory for lambda packaged python source and modules
+  * .deploy: directory that contains stack deployment file
+  * .venv: Python virtual environment
 
-The "tests" directory is optional and can be stru
+## Makefile Usage
+
+The Makefile requires the following environment variable to be set.
+
+  * BUCKET: S3 bucket used to hold lambda build artifacts
+
+The Makefile supports the following commands.
+
+  * all: Default target, runs build and tests
+  * build: Build templates and source, includes linting/validation
+  * test: Execute test files
+  * deploy: Create CloudFormation stacks
+  * destroy: Delete CloudFormation stacks
+  * clean: Delete build and test artifacts
