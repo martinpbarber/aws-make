@@ -152,7 +152,7 @@ $(COVERAGE): $(BUILD_LAMBDA_SOURCES) $(LAMBDA_REQUIREMENTS) $(TESTS)
 # Deploy the system
 ################################################################################
 .PHONY: deploy
-deploy: build $(COVERAGE) $(STACKS)
+deploy: build test $(STACKS)
 
 $(STACKS): | $(DEPLOY_DIR)
 
