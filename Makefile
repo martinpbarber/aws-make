@@ -116,6 +116,7 @@ all: build test
 
 ################################################################################
 # Build the system
+# TODO: Templates depend on sources, needs to be fixed
 ################################################################################
 .PHONY: build
 build: $(BUILD_LAMBDA_DIRECTORIES) $(BUILD_LAMBDA_SOURCES) $(BLD_TEMPLATES)
