@@ -1,0 +1,9 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: >-
+  Test CloudFormation Template
+
+Resources:
+  Role:
+    Type: AWS::S3::Bucket

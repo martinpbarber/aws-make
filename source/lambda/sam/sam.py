@@ -1,7 +1,9 @@
 """Test Module"""
 import logging
 import json
-import boto3    # pylint: disable=unused-import
+import boto3        # pylint: disable=unused-import
+
+import sam_model
 
 LOGGER = logging.getLogger()
 LOGGER.setLevel(logging.INFO)
@@ -12,3 +14,5 @@ def handler(event, context):
     # pylint: disable=unused-argument
     """Lambda Entry"""
     LOGGER.info('event: %s', json.dumps(event))
+
+    sam_model.Model()
