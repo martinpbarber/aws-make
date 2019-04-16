@@ -113,7 +113,7 @@ $(DEPLOY_DIR)/%.stack: $(BLD_CFN_DIR)/%.yml
 # Make everything
 ################################################################################
 .PHONY: all
-all: build $(COVERAGE)
+all: build test #$(COVERAGE)
 
 ################################################################################
 # Build the system
@@ -142,6 +142,9 @@ $(VENV): $(REQUIREMENTS)
 ################################################################################
 # Test the system
 ################################################################################
+.PHONY: test
+test: $(COVERAGE)
+
 $(COVERAGE): $(BUILD_LAMBDA_SOURCES) $(LAMBDA_REQUIREMENTS) $(TESTS)
 	$(ACTIVATE) && coverage run --omit='tests/*,$(VENV)/*,conftest.py' -m pytest -vv && coverage report -m
 	@find . -type d -name __pycache__ -exec rm -rf {} \+
