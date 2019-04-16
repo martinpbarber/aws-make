@@ -113,7 +113,7 @@ $(DEPLOY_DIR)/%.stack: $(BLD_CFN_DIR)/%.yml
 # Make everything
 ################################################################################
 .PHONY: all
-all: build test #$(COVERAGE)
+all: build test
 
 ################################################################################
 # Build the system
@@ -164,10 +164,10 @@ $(DEPLOY_DIR):
 ################################################################################
 # Destroy the system
 ################################################################################
-# Remove stacks, evaluate now so only deployed stack are deleted
 .PHONY: destroy
 destroy: destroy-stacks destroy-s3-objects
 
+# Remove stacks, evaluate now so only deployed stack are deleted
 .PHONY: destroy-stacks
 destroy-stacks:
 	$(eval STACKS_TO_DELETE = $(shell for STACK in $(STACKS_REVERSED); do ls $$STACK 2>/dev/null | sed -e 's#$(DEPLOY_DIR)/##' -e 's/.stack//';done))
