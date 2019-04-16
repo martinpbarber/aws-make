@@ -13,7 +13,6 @@ LAMBDA_SRC_DIR := $(SRC_DIR)/lambda
 BLD_DIR := .build
 BLD_CFN_DIR := $(BLD_DIR)/cfn
 BLD_SRC_DIR := $(BLD_DIR)/src
-BLD_LAMBDA_SRC_DIR := $(BLD_SRC_DIR)/lambda
 TST_DIR := tests
 DEPLOY_DIR := .deploy
 
