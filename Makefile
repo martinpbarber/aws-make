@@ -116,12 +116,14 @@ all: build test
 
 ################################################################################
 # Build the system
-# TODO: Templates depend on sources, needs to be fixed
+# TODO: ALL templates currently depend on ALL sources/requirements
+#	This needs to be updated so templates depend on included sources/requirements
 ################################################################################
 .PHONY: build
 build: $(BUILD_LAMBDA_DIRECTORIES) $(BUILD_LAMBDA_SOURCES) $(BLD_TEMPLATES)
 
 $(BLD_TEMPLATES): | $(VENV) $(BLD_CFN_DIR)
+$(BLD_TEMPLATES): $(LAMBDA_SOURCES) $(LAMBDA_REQUIREMENTS)
 $(BUILD_LAMBDA_DIRECTORIES): | $(VENV)
 
 # Build directory
