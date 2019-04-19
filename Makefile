@@ -65,8 +65,17 @@ VENV := .venv
 ACTIVATE := . $(VENV)/bin/activate
 # Build Requirements
 REQUIREMENTS := requirements.txt
+
+################################################################################
+# Testing Settings
+################################################################################
 # Coverage temp file
 COVERAGE := .coverage
+# Coverage commands
+COVERAGE_RUN_CMD = coverage run --omit='tests/*,$(VENV)/*,conftest.py'
+COVERAGE_REPORT_CMD = coverage report -m
+# Pytest command
+PYTEST_CMD = pytest -vv --disable-pytest-warning -s
 
 ################################################################################
 # Make Settings
@@ -148,7 +157,7 @@ $(VENV): $(REQUIREMENTS)
 test: $(COVERAGE)
 
 $(COVERAGE): $(BUILD_LAMBDA_SOURCES) $(LAMBDA_REQUIREMENTS) $(TESTS)
-	$(ACTIVATE) && coverage run --omit='tests/*,$(VENV)/*,conftest.py' -m pytest -vv && coverage report -m
+	$(ACTIVATE) && $(COVERAGE_RUN_CMD) -m $(PYTEST_CMD) && $(COVERAGE_REPORT_CMD)
 	@find . -type d -name __pycache__ -exec rm -rf {} \+
 
 ################################################################################
